@@ -126,6 +126,7 @@ const (
 	contextKeyChainID
 	contextKeyIsCheckTx
 	contextKeyTxBytes
+	contextKeyAbsentValidators
 )
 
 // NOTE: Do not expose MultiStore.
@@ -151,6 +152,9 @@ func (c Context) IsCheckTx() bool {
 func (c Context) TxBytes() []byte {
 	return c.Value(contextKeyTxBytes).([]byte)
 }
+func (c Context) AbsentValidators() []int32 {
+	return c.Value(contextKeyAbsentValidators).([]int32)
+}
 func (c Context) WithMultiStore(ms MultiStore) Context {
 	return c.withValue(contextKeyMultiStore, ms)
 }
@@ -169,6 +173,9 @@ func (c Context) WithIsCheckTx(isCheckTx bool) Context {
 }
 func (c Context) WithTxBytes(txBytes []byte) Context {
 	return c.withValue(contextKeyTxBytes, txBytes)
+}
+func (c Context) WithAbsentValidators(AbsentValidators []int32) Context {
+	return c.withValue(contextKeyAbsentValidators, AbsentValidators)
 }
 
 // Cache the multistore and return a new cached context. The cached context is
